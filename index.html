@@ -54,17 +54,20 @@
     button { font-family: inherit; cursor: pointer; border: none; background: none; }
     .container { width: min(1140px, 92%); margin: 0 auto; }
 
-    /* Announcement */
+    /* Announcement / Top Stats Bar */
     .announcement {
-      background: var(--navy);
+      background: linear-gradient(90deg, var(--emerald-dark), var(--emerald), var(--emerald-dark));
       color: var(--white);
       text-align: center;
-      padding: 10px 16px;
-      font-size: 13px;
-      font-weight: 500;
+      padding: 11px 16px;
+      font-size: 13.5px;
+      font-weight: 600;
       letter-spacing: 0.02em;
+      border-bottom: 2px solid var(--gold);
     }
     .announcement a { color: var(--gold-light); font-weight: 700; }
+    .announcement .stars { color: var(--gold); letter-spacing: 1px; margin-right: 6px; }
+    .announcement .divider { opacity: 0.5; margin: 0 10px; }
 
     /* Header */
     header {
@@ -482,6 +485,97 @@
     .modal .thank-you.show { display: block; }
     .modal form.hide { display: none; }
 
+    /* Founder Profile Section */
+    .founder-section {
+      background: var(--white);
+      padding: 72px 0;
+    }
+    .founder-grid {
+      display: grid;
+      gap: 36px;
+      align-items: center;
+    }
+    .founder-photo-wrap {
+      position: relative;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      aspect-ratio: 4/5;
+      max-height: 480px;
+      background: var(--navy);
+    }
+    .founder-photo-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+    }
+    .founder-photo-wrap::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border: 3px solid var(--gold);
+      border-radius: var(--radius);
+      pointer-events: none;
+      opacity: 0.85;
+    }
+    .founder-content .section-label { margin-bottom: 8px; }
+    .founder-content h2 {
+      font-size: clamp(1.4rem, 3vw, 1.85rem);
+      font-weight: 800;
+      color: var(--navy);
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+    }
+    .founder-content .founder-body {
+      color: var(--muted);
+      font-size: 15.5px;
+      line-height: 1.75;
+      margin-bottom: 22px;
+      max-width: 52ch;
+    }
+    .founder-sign {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .founder-sign .name {
+      font-weight: 800;
+      font-size: 1.15rem;
+      color: var(--emerald);
+    }
+    .founder-sign .role {
+      font-size: 13.5px;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    /* Social icons */
+    .social-links {
+      display: flex;
+      gap: 12px;
+      margin-top: 18px;
+      flex-wrap: wrap;
+    }
+    .social-links a {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+      background: rgba(255,255,255,0.08);
+      color: var(--gold-light);
+      border: 1px solid rgba(200,162,74,0.35);
+      transition: 0.2s;
+    }
+    .social-links a:hover {
+      background: var(--gold);
+      color: var(--navy);
+      border-color: var(--gold);
+    }
+
     /* Floating WhatsApp desktop */
     .float-wa {
       position: fixed; bottom: 24px; right: 24px; z-index: 90;
@@ -492,6 +586,40 @@
       font-size: 28px;
     }
     .float-wa:hover { transform: scale(1.06); }
+
+    /* Trip Companion AI floating widget */
+    .float-ai {
+      position: fixed;
+      bottom: 24px;
+      left: 24px;
+      z-index: 90;
+      display: none;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 18px 12px 14px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--emerald), var(--emerald-dark));
+      color: white;
+      font-weight: 700;
+      font-size: 13.5px;
+      box-shadow: 0 8px 28px rgba(11,93,75,0.45);
+      transition: transform 0.2s, box-shadow 0.2s;
+      border: 2px solid var(--gold);
+    }
+    .float-ai:hover {
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 12px 32px rgba(11,93,75,0.55);
+    }
+    .float-ai .ai-icon {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: var(--gold);
+      color: var(--navy);
+      display: grid;
+      place-items: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
 
     /* Sticky mobile bar */
     .sticky-bar {
@@ -533,6 +661,8 @@
       .why-grid { grid-template-columns: 1fr 1fr; }
       .services-grid { grid-template-columns: 1fr 1fr 1fr; }
       .phone-link { display: block; }
+      .founder-grid { grid-template-columns: 0.9fr 1.1fr; gap: 48px; }
+      .float-ai { display: inline-flex; }
     }
     @media (min-width: 900px) {
       nav.desktop { display: flex; }
@@ -551,13 +681,30 @@
       .enquiry-fields { grid-template-columns: repeat(5, 1fr) auto; align-items: end; }
       .enquiry-fields .full { grid-column: auto; }
       .hero-content { padding: 120px 0 200px; }
+      .founder-grid { gap: 56px; }
+    }
+    /* Mobile: show AI companion above sticky bar */
+    @media (max-width: 639px) {
+      .float-ai {
+        display: inline-flex;
+        bottom: 82px;
+        left: 12px;
+        padding: 10px 14px 10px 10px;
+        font-size: 12.5px;
+      }
+      .float-ai .ai-icon { width: 30px; height: 30px; font-size: 15px; }
+      .founder-photo-wrap { max-height: 360px; aspect-ratio: 3/4; }
     }
   </style>
 </head>
 <body>
-  <!-- ANNOUNCEMENT -->
+  <!-- ANNOUNCEMENT / TOP STATS BAR -->
   <div class="announcement" data-i18n="announcement">
-    KHI → JED tickets available — <a href="#" onclick="openModal(); return false;">Apply Now &amp; Process Today</a> | Call <a href="tel:+923002776949">0300-2776949</a>
+    <span class="stars">⭐⭐⭐⭐⭐</span> Over 500+ Satisfied Customers Served
+    <span class="divider">|</span>
+    KHI → JED tickets available — <a href="#" onclick="openModal(); return false;">Apply Now &amp; Process Today</a>
+    <span class="divider">|</span>
+    Call <a href="tel:+923002776949">0300-2776949</a>
   </div>
 
   <!-- HEADER -->
@@ -707,7 +854,7 @@
     <div class="container">
       <div class="section-label" data-i18n="label_packages">Umrah Packages</div>
       <h2 class="section-title fade-up" data-i18n="title_packages">Featured Umrah Packages</h2>
-      <p class="section-sub fade-up" data-i18n="sub_packages">Economy, Standard and Premium options — choose what fits your journey. Transparent pricing. Dependable support.</p>
+      <p class="section-sub fade-up" data-i18n="sub_packages">15-Day Umrah packages from PKR 214,000 · 2026 Group packages from PKR 235,000 / 260,000 · Visa services available. Transparent pricing. Dependable support.</p>
       <div class="pkg-grid" id="pkgGrid"></div>
     </div>
   </section>
@@ -732,6 +879,28 @@
       <h2 class="section-title fade-up" data-i18n="title_how">Apply Now &amp; Process Today</h2>
       <p class="section-sub fade-up" data-i18n="sub_how">From departure to return, we're with you every step of the way.</p>
       <div class="steps" id="stepsGrid"></div>
+    </div>
+  </section>
+
+  <!-- FOUNDER'S MESSAGE / EXECUTIVE PROFILE -->
+  <section class="founder-section" id="founder">
+    <div class="container">
+      <div class="founder-grid fade-up">
+        <div class="founder-photo-wrap">
+          <img src="assets/founder.jpg" alt="Muhammad Ajmal — Founder &amp; CEO, Labbaik Go" loading="lazy" />
+        </div>
+        <div class="founder-content">
+          <div class="section-label">Founder's Message</div>
+          <h2>Empowering Spiritual Journeys with Excellence</h2>
+          <p class="founder-body">
+            With over five years of dedicated experience in organizing sacred travels, our mission is built on trust, transparency, and deep religious values. We strive to provide a seamless, peaceful, and deeply inspiring experience for every pilgrim, ensuring you can focus entirely on your worship and leave with absolute peace of mind.
+          </p>
+          <div class="founder-sign">
+            <span class="name">Muhammad Ajmal</span>
+            <span class="role">Founder &amp; CEO, Labbaik Go</span>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -841,6 +1010,10 @@
             <a class="btn btn-gold" href="tel:+923002776949" style="padding:10px 16px;font-size:13px;">Call 0300-2776949</a>
             <a class="btn btn-outline" href="https://wa.me/923002776949" target="_blank" rel="noopener" style="padding:10px 16px;font-size:13px;">WhatsApp</a>
           </div>
+          <div class="social-links">
+            <a href="https://www.instagram.com/labbaik.go" target="_blank" rel="noopener" aria-label="Instagram">📸 Instagram</a>
+            <a href="https://www.facebook.com/labbaik.go" target="_blank" rel="noopener" aria-label="Facebook">📘 Facebook</a>
+          </div>
         </div>
         <div class="footer-col urdu-col" lang="ur" dir="rtl">
           <h3>لبیک گو — Labbaik Go</h3>
@@ -875,6 +1048,12 @@
 
   <!-- FLOATING WA -->
   <a class="float-wa" href="https://wa.me/923002776949" target="_blank" rel="noopener" aria-label="WhatsApp">💬</a>
+
+  <!-- TRIP COMPANION AI -->
+  <a class="float-ai" href="https://labbaik-umrah-trip-companion.lovable.app" target="_blank" rel="noopener" aria-label="Trip Companion AI">
+    <span class="ai-icon">🤖</span>
+    <span>Trip Companion AI</span>
+  </a>
 
   <!-- STICKY MOBILE BAR -->
   <div class="sticky-bar">
@@ -962,35 +1141,35 @@
       { month: "Nov", date: "21 Nov 2026", airline: "Flyadeal", route: "KHI → JED", price: "PKR [price]", note: "Seats Available" }
     ],
 
-    // Featured packages — edit prices/hotels as placeholders
+    // Featured packages — latest offline portfolio / 2026 packages
     packages: [
       {
-        name: "Economy Umrah",
-        badge: "",
-        duration: "15–21 Days",
-        makkah: "Makkah hotel (economy)",
-        madinah: "Madinah hotel (economy)",
-        price: "From PKR [price]",
+        name: "15 Days Umrah Package",
+        badge: "Popular",
+        duration: "15 Days",
+        makkah: "Makkah hotel",
+        madinah: "Madinah hotel",
+        price: "From PKR 214,000",
         photo: "assets/pkg-group.jpg",
         includes: ["Visa", "Flight", "Hotel", "Transport", "Ziyarat"]
       },
       {
-        name: "Standard Umrah",
+        name: "2026 Group Package",
         badge: "Best Value",
-        duration: "15–21 Days",
-        makkah: "Makkah hotel (standard)",
-        madinah: "Madinah hotel (standard)",
-        price: "From PKR [price]",
+        duration: "15 Days · 2026",
+        makkah: "Makkah hotel (group)",
+        madinah: "Madinah hotel (group)",
+        price: "From PKR 235,000",
         photo: "assets/hotel-kiswa.jpg",
         includes: ["Visa", "Flight", "Hotel", "Transport", "Ziyarat", "Guide"]
       },
       {
-        name: "Premium Umrah",
+        name: "2026 Premium Group",
         badge: "Premium",
-        duration: "15–21 Days",
+        duration: "15 Days · 2026",
         makkah: "Makkah hotel (premium)",
         madinah: "Madinah hotel (premium)",
-        price: "From PKR [price]",
+        price: "From PKR 260,000",
         photo: "assets/hero-4.jpg",
         includes: ["Visa", "Flight", "Hotel", "Transport", "Ziyarat", "Guide", "24/7 Support"]
       }
@@ -1057,7 +1236,7 @@
       label_flights: "Flights", title_flights: "Karachi to Jeddah Tickets",
       sub_flights: "Plenty of seats available from Karachi (KHI) to Jeddah (JED). Availability changes daily — secure your seat today.",
       label_packages: "Umrah Packages", title_packages: "Featured Umrah Packages",
-      sub_packages: "Economy, Standard and Premium options — choose what fits your journey. Transparent pricing. Dependable support.",
+      sub_packages: "15-Day Umrah packages from PKR 214,000 · 2026 Group packages from PKR 235,000 / 260,000 · Visa services available. Transparent pricing. Dependable support.",
       label_hajj: "Hajj Packages", hajj_banner: "Customized Hajj packages built around your needs and budget",
       btn_quote: "Request a Custom Quote", label_how: "Process", title_how: "Apply Now & Process Today",
       sub_how: "From departure to return, we're with you every step of the way.",
